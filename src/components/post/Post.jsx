@@ -1,29 +1,31 @@
 import "./post.css";
+import { Link } from "react-router-dom";
 
-function Post() {
+function Post({ post }) {
+  const PF = "http://localhost:5000/images/";
+
   return (
     <div className="post">
-      <img
-        className="postImg"
-        src="https://images.pexels.com/photos/9770723/pexels-photo-9770723.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-      />
+      {post.photo && <img className="postImg" src={PF + post.photo} />}
 
       <div className="postInfo">
         <div className="postCats">
-          <span className="postCat">Product</span>
-          <span className="postCat">Music</span>
+          {post.categories.map((c) => (
+             <Link to = {`/?cat=${c.name}`} className="link">
+            <span className="postCat">{c}</span>
+           </Link>
+          ))}
         </div>
-        <span className="postTitle">Lorem Ibusum</span>
+        <Link to={`/post/${post._id}`} className="link">
+          <span className="postTitle">{post.title}</span>
+        </Link>
         <hr />
 
-        <span className="postDate">1 hour ago</span>
+        <span className="postDate">
+          {new Date(post.createdAt).toDateString()}
+        </span>
       </div>
-      <p className="postDesc">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
-        officia architecto deserunt deleniti? Labore ipsum aspernatur magnam
-        fugiat, reprehenderit praesentium blanditiis quos cupiditate ratione
-        atque, exercitationem quibusdam, reiciendis odio laboriosam?
-      </p>
+      <p className="postDesc">{post.desc}</p>
     </div>
   );
 }

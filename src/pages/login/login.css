@@ -47,6 +47,13 @@
     border-radius: 10px;
     text-align: center;
   }
+
+  .loginButton:disabled{
+    background-color: rgb(228, 178, 178);
+    cursor: not-allowed
+
+  }
+
   
   .loginRegisterButton {
     position: absolute;
